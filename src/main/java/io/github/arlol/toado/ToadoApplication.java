@@ -3,6 +3,7 @@ package io.github.arlol.toado;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
+import io.github.arlol.toado.health.TodoHealthCheck;
 import io.github.arlol.toado.resources.TodoResource;
 
 public class ToadoApplication extends Application<ToadoConfiguration> {
@@ -24,6 +25,8 @@ public class ToadoApplication extends Application<ToadoConfiguration> {
     @Override
     public void run(final ToadoConfiguration configuration, final Environment environment) {
         final TodoResource resource = new TodoResource();
+        final TodoHealthCheck healthCheck = new TodoHealthCheck(resource);
+        environment.healthChecks().register("todo", healthCheck);
         environment.jersey().register(resource);
     }
 
