@@ -3,6 +3,8 @@ package io.github.arlol.toado.api;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import javax.validation.Valid;
+
 import org.hibernate.validator.constraints.NotEmpty;
 
 public class Todo {
@@ -11,6 +13,7 @@ public class Todo {
     @NotEmpty
     private String name;
     private String description;
+    @Valid
     private Collection<Todo> subtasks = new ArrayList<>();
 
     public Long getId() {

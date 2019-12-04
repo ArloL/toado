@@ -43,6 +43,13 @@ public class TodoResourceIntegrationTest {
     }
 
     @Test
+    public void createWithMissingRequiredFieldsInSubTask() {
+        Todo todo = newTodo();
+        todo.getSubtasks().add(new Todo());
+        assertThat(resources.target("/todos").request().post(Entity.json(todo)).getStatus()).isEqualTo(422);
+    }
+
+    @Test
     public void deleteByIdNotExisting() {
         assertThat(resources.target("/todos/1").request().delete().getStatus()).isEqualTo(404);
     }
