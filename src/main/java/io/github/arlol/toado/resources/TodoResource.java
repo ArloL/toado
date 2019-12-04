@@ -58,7 +58,7 @@ public class TodoResource {
     @PUT
     @Path("/{id}")
     @Timed
-    public Todo update(@PathParam("id") long id, @NotNull Todo todo) {
+    public Todo update(@PathParam("id") long id, @NotNull @Valid Todo todo) {
         if (todo.getId() != id) {
             final String msg = String.format("Todo ID %s does not match path ID", todo.getId(), id);
             throw new WebApplicationException(msg, Status.BAD_REQUEST);

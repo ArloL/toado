@@ -32,7 +32,7 @@ public class TodoResourceIntegrationTest {
 
     @Test
     public void createWithIdSet() {
-        Todo todo = new Todo();
+        Todo todo = newTodo();
         todo.setId(1L);
         assertThat(resources.target("/todos").request().post(Entity.json(todo)).getStatus()).isEqualTo(400);
     }
@@ -49,16 +49,28 @@ public class TodoResourceIntegrationTest {
 
     @Test
     public void updateByIdNotExisting() {
-        Todo todo = new Todo();
+        Todo todo = newTodo();
         todo.setId(1L);
         assertThat(resources.target("/todos/1").request().put(Entity.json(todo)).getStatus()).isEqualTo(404);
     }
 
     @Test
     public void updateByIdWithIdMismatch() {
-        Todo todo = new Todo();
+        Todo todo = newTodo();
         todo.setId(2L);
         assertThat(resources.target("/todos/1").request().put(Entity.json(todo)).getStatus()).isEqualTo(400);
+    }
+
+    @Test
+    public void updateWithMissingRequiredFields() {
+        assertThat(resources.target("/todos/1").request().put(Entity.json(new Todo())).getStatus()).isEqualTo(422);
+    }
+
+    private Todo newTodo() {
+        Todo todo = new Todo();
+        todo.setName("name");
+        todo.setDescription("description");
+        return todo;
     }
 
 }
