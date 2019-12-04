@@ -10,7 +10,6 @@ public class Todo {
     private Long id;
     @NotEmpty
     private String name;
-    @NotEmpty
     private String description;
     private Collection<Todo> subtasks = new ArrayList<>();
 
