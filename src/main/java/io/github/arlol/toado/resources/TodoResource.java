@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -45,7 +46,7 @@ public class TodoResource {
 
     @POST
     @Timed
-    public Todo create(@NotNull Todo todo) {
+    public Todo create(@NotNull @Valid Todo todo) {
         if (todo.getId() != null) {
             throw new WebApplicationException("id should not be set", Status.BAD_REQUEST);
         }
