@@ -17,7 +17,7 @@ public class TodoHealthCheck extends HealthCheck {
 
     @Override
     protected Result check() throws Exception {
-        Collection<Todo> todos = todoResource.getAllTodos();
+        Collection<Todo> todos = todoResource.findAll();
         if (todos == null) {
             return Result.unhealthy("todos are null");
         }
