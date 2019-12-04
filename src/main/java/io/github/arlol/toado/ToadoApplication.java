@@ -19,7 +19,6 @@ public class ToadoApplication extends Application<ToadoConfiguration> {
 
     @Override
     public void initialize(final Bootstrap<ToadoConfiguration> bootstrap) {
-        // TODO: application initialization
     }
 
     @Override
