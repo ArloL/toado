@@ -47,8 +47,7 @@ public class TodoResourceTest {
 
     @Test
     public void createAndFindById() {
-        Todo todo = newTodo();
-        todo = resource.create(todo);
+        Todo todo = resource.create(newTodo());
         assertNotNull(todo);
         assertNotNull(todo.getId());
         todo = resource.findById(todo.getId());
@@ -65,8 +64,7 @@ public class TodoResourceTest {
 
     @Test
     public void delete() {
-        Todo todo = new Todo();
-        todo = resource.create(todo);
+        Todo todo = resource.create(newTodo());
         assertNotNull(resource.delete(todo.getId()));
     }
 
@@ -78,8 +76,7 @@ public class TodoResourceTest {
 
     @Test
     public void update() {
-        Todo todo = newTodo();
-        todo = resource.create(todo);
+        Todo todo = resource.create(newTodo());
         todo.setName("updated name");
         Todo updated = resource.update(todo.getId(), todo);
         assertEquals(todo.getName(), updated.getName());
