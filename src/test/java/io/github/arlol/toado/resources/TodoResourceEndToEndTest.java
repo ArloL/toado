@@ -9,7 +9,9 @@ import org.junit.ClassRule;
 import org.junit.Test;
 
 import io.dropwizard.client.JerseyClientBuilder;
+import io.dropwizard.client.JerseyClientConfiguration;
 import io.dropwizard.testing.junit.DropwizardAppRule;
+import io.dropwizard.util.Duration;
 import io.github.arlol.toado.ToadoApplication;
 import io.github.arlol.toado.ToadoConfiguration;
 
@@ -21,7 +23,11 @@ public class TodoResourceEndToEndTest {
 
     @Test
     public void findByIdNonExisting() {
-        Client client = new JerseyClientBuilder(RULE.getEnvironment()).build("test client");
+        JerseyClientConfiguration configuration = new JerseyClientConfiguration();
+        configuration.setTimeout(Duration.seconds(5));
+        configuration.setConnectionTimeout(Duration.seconds(5));
+        configuration.setConnectionRequestTimeout(Duration.seconds(5));
+        Client client = new JerseyClientBuilder(RULE.getEnvironment()).using(configuration).build("test client");
 
         Response response = client.target(String.format("http://localhost:%d/todos/1", RULE.getLocalPort())).request()
                 .get();
